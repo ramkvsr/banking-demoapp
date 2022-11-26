@@ -1,7 +1,8 @@
 timeout: 1200s
 substitutions:
   _REGION: us-west1
-  _CLUSTER: ram-dev-cluster 
+  _CLUSTER: ram-dev-cluster
+  _PROJECTID: resonant-cairn-369601
 steps:
   - name: gcr.io/cloud-builders/kubectl
     id: Configure kubectl
@@ -11,6 +12,7 @@ steps:
       - CLOUDSDK_COMPUTE_REGION=$_REGION
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - KUBECONFIG=/workspace/.kube/config
+      - PROJECT_ID=$_PROJECTID
       
   - name: gcr.io/cloud-builders/kubectl
     id: create app secretes
@@ -19,6 +21,7 @@ steps:
       - CLOUDSDK_COMPUTE_REGION=$_REGION
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - KUBECONFIG=/workspace/.kube/config
+      - PROJECT_ID=$_PROJECTID
       
   - name: gcr.io/cloud-builders/kubectl
     id: deploy bank-of-anthos
@@ -27,3 +30,4 @@ steps:
       - CLOUDSDK_COMPUTE_REGION=$_REGION
       - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
       - KUBECONFIG=/workspace/.kube/config
+      - PROJECT_ID=$_PROJECTID
